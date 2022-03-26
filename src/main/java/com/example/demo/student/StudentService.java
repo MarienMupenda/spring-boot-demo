@@ -20,12 +20,12 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public void addStudent(Student student) {
+    public Student addStudent(Student student) {
         Optional<Student> optionalStudent = studentRepository.findStudentByEmail(student.getEmail());
         if (optionalStudent.isPresent()) {
             throw new IllegalStateException("Email taken");
         }
-        studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
     public void deleteStudent(Long studentId) {
@@ -35,5 +35,19 @@ public class StudentService {
             throw new IllegalStateException("Studennt with id: " + studentId + " does not exists");
         }
         studentRepository.deleteById(studentId);
+    }
+
+    public Student getStudent(Long id) {
+        return studentRepository.findById(id).orElseThrow(() -> new IllegalStateException("Student with id: " + id + " does not exists"));
+    }
+
+    public Student updateStudent(Long id, String name, String email) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalStateException("Student with id: " + id + " does not exists"));
+
+        student.setName(name);
+        student.setEmail(email);
+
+        return studentRepository.save(student);
+
     }
 }

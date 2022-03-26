@@ -47,7 +47,11 @@ public class Student {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name != null && !name.isEmpty() && !name.equals(this.getName())) {
+            this.name = name;
+        }else {
+            System.out.println("Name is not valid");
+        }
     }
 
     public String getEmail() {
@@ -55,7 +59,11 @@ public class Student {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if(email != null && !email.isEmpty() && !email.equals(this.getEmail())) {
+            this.email = email;
+        }else {
+            System.out.println("Email is not valid");
+        }
     }
 
     public LocalDate getDob() {
